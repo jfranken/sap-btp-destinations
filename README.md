@@ -1,4 +1,6 @@
-# Instructions
+# SAP BTP Destionations - NoAuthentication
+
+![Scenario](./misc/scenario.png)
 
 ## Prerequisites
 
