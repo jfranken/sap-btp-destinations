@@ -1,0 +1,7 @@
+{
+    "requires": {
+        "auth": {
+            "kind": "dummy-auth"
+        }
+    }
+}

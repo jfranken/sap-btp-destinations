@@ -1,0 +1,26 @@
+{
+    "name": "server",
+    "version": "1.0.0",
+    "description": "A simple CAP project.",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+      "@sap/cds": "^5",
+      "@sap/xsenv": "^3.4.0",
+      "@sap/xssec": "^3.2.17",
+      "express": "^4",
+      "passport": "^0.6.0"
+    },
+    "devDependencies": {
+    },
+    "scripts": {
+        "cf:login": "cf l -a ${API_ENDPOINT} -o ${ORG_NAME} -s ${SPACE_NAME}",
+        "init": "cd client && npm i && cd .. && cd server && npm i && cd ..",
+        "build:client": "cd client && npm run mbt:build && cd ..",
+        "deploy:client": "cd client && npm run cf:deploy && cd ..",
+        "build:server": "cd server && npm run mbt:build && cd ..",
+        "deploy:server": "cd server && npm run cf:deploy && cd .."
+    }
+  }
+  
