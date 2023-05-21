@@ -17,7 +17,6 @@
   },
   "scripts": {
     "start": "cds run",
-    "cf:login": "cf l -a https://api.cf.us10-001.hana.ondemand.com -o \"036545eftrial\" -s \"dev\"",
     "mbt:build": "mbt build --mtar server.mtar",
     "cf:deploy": "cf deploy mta_archives/server.mtar"
   },
