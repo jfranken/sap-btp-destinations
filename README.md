@@ -40,7 +40,9 @@
     -   Type: HTTP
     -   URL: https://${ROUTE_FROM_ABOVE}/server/helloWorldServer()
     -   ProxyType: Internet
-    -   Authentication: NoAuthentication
+    -   Authentication: BasicAuthentication
+    -   User: myUsername
+    -   Password: superStrongPassword
 
 ![Destination](./misc/destination.png)
 
@@ -51,7 +53,7 @@
 
 ## Test the destination via your browser
 
--   Copy `cf app client | grep routes`
+-   `cf app client | grep routes`
 -   copy the route that should have the following format: XXXXXXeftrial-dev-server.cfapps.XXXX-XXX.hana.ondemand.com
 -   Plain Implementation: open a webbrowser and paste the following URL: ${ROUTE_FROM_ABOVE}/client/helloWorldClientPlain()
 -   Cloud SDK Implementation: open a webbrowser and paste the following URL: ${ROUTE_FROM_ABOVE}/client/helloWorldClientCloudSDK()

@@ -28,7 +28,15 @@ module.exports = async (srv) => {
         const destination = destinationResult.data
 
         // now, we use the retrieved the destination information to send a HTTP request to the server endpoint
-        const destinationResponse = await axios.get(destination.destinationConfiguration.URL)
+        // to authenticate, we take the User attribute and the Password attribute from the destination,
+        // encode User:Password to Base64 and send the resulting string prefixed with "Basic " as Authorization
+        // header of the request
+        const destinationResponse = await axios.get(destination.destinationConfiguration.URL, {
+            headers: {
+                Authorization:
+                    'Basic ' + btoa(destination.destinationConfiguration.User + ':' + destination.destinationConfiguration.Password),
+            },
+        })
         return destinationResponse.data
     })
     srv.on('helloWorldClientCloudSDK', async () => {
