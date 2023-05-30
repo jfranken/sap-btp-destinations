@@ -34,6 +34,8 @@ module.exports = async (srv) => {
         const destinationResponse = await axios.get(destination.destinationConfiguration.URL, {
             headers: {
                 Authorization:
+                    // alternatively, you can also read the already encoded value from
+                    // destination.authTokens[0].value
                     'Basic ' + btoa(destination.destinationConfiguration.User + ':' + destination.destinationConfiguration.Password),
             },
         })
