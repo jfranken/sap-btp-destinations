@@ -1,4 +1,4 @@
-# SAP BTP Destionations - NoAuthentication
+# SAP BTP Destionations - Basic Authentication
 
 ![Scenario](./misc/scenario.png)
 
