@@ -1,7 +1,10 @@
 {
     "requires": {
         "auth": {
-            "kind": "dummy-auth"
+            "kind": "jwt-auth"
+        },
+        "uaa": {
+            "kind": "xsuaa"
         }
     }
 }

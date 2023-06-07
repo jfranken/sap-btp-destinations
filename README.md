@@ -1,4 +1,4 @@
-# SAP BTP Destionations - Basic Authentication
+# SAP BTP Destionations - OAuth 2 Client Credentials
 
 ![Scenario](./misc/scenario.png)
 
@@ -34,15 +34,18 @@
 
 -   `cf app server | grep routes`
 -   copy the route that should have the following format: XXXXXXeftrial-dev-server.cfapps.XXXX-XXX.hana.ondemand.com
+-   Client ID, Client Secret and Token Service URL can be obtained from the service binding. For this, in the BTP Cockpit, navigate to the server application in the dev Cloud Foundry Space, go to "Service Bindings", select xsuaa-service and then click on the button "Show sensitive data"
+    ![Service Binding](./misc/service-binding.png)
 -   In the SAP BTP Cockpit, navigate into your Cloud Foundry Space > Services > Instances > destination-service > Destinations
 -   Create a new destination with the following parameters
     -   Name: Server
     -   Type: HTTP
     -   URL: https://${ROUTE_FROM_ABOVE}/server/helloWorldServer()
     -   ProxyType: Internet
-    -   Authentication: BasicAuthentication
-    -   User: myUsername
-    -   Password: superStrongPassword
+    -   Authentication: OAuth2ClientCredentials
+    -   Client ID: Server XSUAA Client ID from Service Binding
+    -   Client Secret: Server XSUAA Client Secret from Service Binding
+    -   Token Service URL: https://XXXXXXXXtrial.authentication.XXXX.hana.ondemand.com/oauth/token (Base URL from url property of the service binding)
 
 ![Destination](./misc/destination.png)
 

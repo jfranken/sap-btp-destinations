@@ -27,16 +27,25 @@ module.exports = async (srv) => {
         })
         const destination = destinationResult.data
 
-        // now, we use the retrieved the destination information to send a HTTP request to the server endpoint
-        // to authenticate, we take the User attribute and the Password attribute from the destination,
-        // encode User:Password to Base64 and send the resulting string prefixed with "Basic " as Authorization
-        // header of the request
-        const destinationResponse = await axios.get(destination.destinationConfiguration.URL, {
+        // now, we use the retrieved the destination information to send a HTTP request to the token service endpoint;
+        // to authenticate, we take the Client ID attribute and the Client Secret attribute from the destination,
+        // encode ClientId:ClientSecret to Base64 and send the resulting string prefixed with "Basic " as Authorization
+        // header of the request;
+        // as a response, we receive a JWT token that we can then use to authenticate against the server
+        // alternatively, the JWT token could directly be fetched from destination.authTokens[0].value
+        const jwtTokenResponse = await axios.get(destination.destinationConfiguration.tokenServiceURL + '?grant_type=client_credentials', {
             headers: {
                 Authorization:
-                    // alternatively, you can also read the already encoded value from
-                    // destination.authTokens[0].value
-                    'Basic ' + btoa(destination.destinationConfiguration.User + ':' + destination.destinationConfiguration.Password),
+                    'Basic ' +
+                    btoa(destination.destinationConfiguration.clientId + ':' + destination.destinationConfiguration.clientSecret),
+            },
+        })
+        const jwtToken = jwtTokenResponse.data.access_token
+
+        // here we call the server instance with the bearer token we received from the token service endpoint
+        const destinationResponse = await axios.get(destination.destinationConfiguration.URL, {
+            headers: {
+                Authorization: 'Bearer ' + jwtToken,
             },
         })
         return destinationResponse.data
