@@ -1,42 +1,42 @@
-_schema-version: "3.1"
+_schema-version: '3.1'
 ID: server
 version: 1.1.0
 parameters:
-  enable-parallel-deployments: true
+    enable-parallel-deployments: true
 
 build-parameters:
-  before-all:
-    - builder: custom
-      commands:
-        - npm ci
-        - npx -p @sap/cds-dk cds build --production
+    before-all:
+        - builder: custom
+          commands:
+              - npm ci
+              - npx -p @sap/cds-dk cds build --production
 
 modules:
-  - name: server
-    type: nodejs
-    path: gen/srv
-    parameters:
-      buildpack: nodejs_buildpack
-    build-parameters:
-      builder: npm-ci
-    requires:
-      - name: destination-service
-      - name: xsuaa-service
-    provides:
-      - name: srv-api
-        properties:
-          url: ${default-url}
+    - name: server
+      type: nodejs
+      path: gen/srv
+      parameters:
+          buildpack: nodejs_buildpack
+      build-parameters:
+          builder: npm-ci
+      requires:
+          - name: destination-service
+          - name: xsuaa-server-service
+      provides:
+          - name: srv-api
+            properties:
+                url: ${default-url}
 
 resources:
-  - name: destination-service
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: destination
-      service-name: destination-service
-      service-plan: lite
-  - name: xsuaa-service
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: xsuaa
-      service-plan: application
-      service-name: xsuaa-service
+    - name: destination-service
+      type: org.cloudfoundry.managed-service
+      parameters:
+          service: destination
+          service-name: destination-service
+          service-plan: lite
+    - name: xsuaa-server-service
+      type: org.cloudfoundry.managed-service
+      parameters:
+          service: xsuaa
+          service-plan: application
+          service-name: xsuaa-server-service

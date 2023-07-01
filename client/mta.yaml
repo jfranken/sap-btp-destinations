@@ -21,7 +21,7 @@ modules:
           builder: npm-ci
       requires:
           - name: destination-service
-          - name: xsuaa-service
+          - name: xsuaa-client-service
       provides:
           - name: srv-api
             properties:
@@ -34,9 +34,9 @@ resources:
           service: destination
           service-name: destination-service
           service-plan: lite
-    - name: xsuaa-service
+    - name: xsuaa-client-service
       type: org.cloudfoundry.managed-service
       parameters:
           service: xsuaa
           service-plan: application
-          service-name: xsuaa-service
+          service-name: xsuaa-client-service
